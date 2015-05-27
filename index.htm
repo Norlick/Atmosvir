@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<title>Atmosvir DEV</title>
+
+		<link rel='stylesheet' href='style.css'>
+
+		<!-- SOURCE ----------------------------------------------------------->
+		<!-- Libraries -->
+		<script src='lib/three.min.js'></script>
+
+		<!-- I/O Interface -->
+		<script src='src/config.js'></script>
+		<script src='src/interface/gui.js'></script>
+		<script src='src/interface/input.js'></script>
+		<script src='src/interface/sound.js'></script>
+
+		<!-- Core Application Modules -->
+		<script src='src/app.js'></script>
+		<script src='src/modules/title.js'></script>
+		<script src='src/modules/loadsave.js'></script>
+		<script src='src/modules/game.js'></script>
+		<script src='src/modules/options.js'></script>
+		<script src='src/modules/editor.js'></script>
+
+		<!-- Game Core -->
+		<script src='src/game/core/eventmanager.js'></script>
+		<script src='src/game/core/entitymanager.js'></script>
+		<script src='src/game/core/processcontroller.js'></script>
+
+		<!-- Game Output -->
+		<script src='src/game/output/world.js'></script>
+		<script src='src/game/output/view.js'></script>
+
+		<!-- Game Processors -->
+		<script src='src/game/processors/camera.js'></script>
+		<script src='src/game/processors/object3d.js'></script>
+		<script src='src/game/processors/animation.js'></script>
+		<script src='src/game/processors/physics.js'></script>
+		<script src='src/game/processors/actor.js'></script>
+		<script src='src/game/processors/inventory.js'></script>
+		<script src='src/game/processors/player.js'></script>
+		<script src='src/game/processors/ai.js'></script>
+
+		<!-- Game Engine -->
+		<script src='src/game/engine.js'></script>
+
+		<!-- ATMOSVIR A-GO-GO -->
+		<script src='atmosvir.js'></script>
+
+		<!--------------------------------------------------------------------->
+
+	</head>
+
+	<body>
+
+		<noscript>How are you gonna play an HTML5 game with Javascript disabled? :|</noscript>
+
+		<section id='Title'>
+			<header>
+				<logo>Atmosvir <span>DEV</span></logo>
+				<nav>
+					<button type='button' id='mm_newgame'>New Game</button>
+					<button type='button' id='mm_continue' disabled>Continue</button>
+					<button type='button' id='mm_loadgame'>Load Game</button>
+					<button type='button' id='mm_options'>Options</button>
+					<button type='button' id='mm_editor' disabled>Editor</button>
+				</nav>
+			</header>
+		</section>
+
+		<section id='Game'>
+			<debug-panel>
+				<button type='button'>Start/Stop Game</button>
+			</debug-panel>
+			<canvas id='Viewport'></canvas>
+		</section>
+
+		<section id='Options'></section>
+
+		<section id='Debug'></section>
+
+	</body>
+
+</html>
