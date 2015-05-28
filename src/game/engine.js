@@ -68,7 +68,10 @@ GAME.Engine = {};
 			// Start game engine
 			tick = requestAnimationFrame( loop );
 			isRunning = true;
+
+			return true;
 		}
+		return false;
 	};
 
 	this.stop = function stop() {
@@ -76,7 +79,10 @@ GAME.Engine = {};
 			// Stop game engine
 			cancelAnimationFrame( tick );
 			isRunning = false;
+
+			return true;
 		}
+		return false;
 	};
 
 	//--------------------------------------------------------------------------

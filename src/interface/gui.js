@@ -13,4 +13,11 @@ var GUI = {};
 
 	//--------------------------------------------------------------------------
 
+	this.goToSection = function goToSection( id ) {
+		let s = document.querySelector( 'section.active' );
+		if ( s !== null ) s.className = '';
+		s = document.getElementById( id );
+		s.className = 'active';
+	};
+
 } ).call( GUI );

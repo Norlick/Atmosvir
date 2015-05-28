@@ -8,7 +8,9 @@ function EditorModule() {
 
 		name : 'editor',
 
-		onEnter : function() {},
+		onEnter : function() {
+			GUI.goToSection( 'Game' );
+		},
 
 		onLeave : function() {}
 

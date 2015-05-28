@@ -25,7 +25,9 @@ function TitleModule() {
 
 		name : 'title',
 
-		onEnter : function() {},
+		onEnter : function() {
+			GUI.goToSection( 'Title' );
+		},
 
 		onLeave : function() {}
 

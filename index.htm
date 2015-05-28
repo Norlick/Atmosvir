@@ -58,29 +58,39 @@
 
 		<noscript>How are you gonna play an HTML5 game with Javascript disabled? :|</noscript>
 
+		<section id='Intro'>
+			<div id='intro_0'>Powered by Three.js</div>
+			<div id='intro_1'>A Game by <strong>Norlick</strong></div>
+		</section>
+
 		<section id='Title'>
-			<header>
-				<logo>Atmosvir <span>DEV</span></logo>
-				<nav>
-					<button type='button' id='mm_newgame'>New Game</button>
-					<button type='button' id='mm_continue' disabled>Continue</button>
-					<button type='button' id='mm_loadgame'>Load Game</button>
-					<button type='button' id='mm_options'>Options</button>
-					<button type='button' id='mm_editor' disabled>Editor</button>
-				</nav>
-			</header>
+			<div class='wrap'>
+				<header>
+					<div id='Logo'>Atmosvir <span>DEV</span></div>
+					<nav>
+						<button type='button' id='mm_newgame'>New Game</button>
+						<button type='button' id='mm_continue' disabled>Continue</button>
+						<button type='button' id='mm_loadgame' disabled>Load Game</button>
+						<button type='button' id='mm_options'>Options</button>
+						<button type='button' id='mm_editor' disabled>Editor</button>
+					</nav>
+				</header>
+				<menu>
+					<button type='button' id='mm_fullscreen' disabled>Fullscreen</button>
+					<button type='button' id='mm_mute' disabled>Mute</button>
+				</menu>
+			</div>
 		</section>
 
 		<section id='Game'>
 			<debug-panel>
-				<button type='button'>Start/Stop Game</button>
+				<button type='button' id='cmd_backToTitle'>Back to Title</button>
+				<button type='button' id='cmd_toggleEngineLoop'>Start/Stop Game</button>
 			</debug-panel>
 			<canvas id='Viewport'></canvas>
 		</section>
 
 		<section id='Options'></section>
-
-		<section id='Debug'></section>
 
 	</body>
 

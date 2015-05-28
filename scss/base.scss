@@ -1,0 +1,17 @@
+// DEFAULTS --------------------------------------------------------------------
+body {
+	font-family:'Clear Sans', sans-serif;
+}
+#Logo {
+	font-family:'Clear Sans Thin', sans-serif;
+}
+
+// SECTION SHELL ---------------------------------------------------------------
+section {
+	display:none;
+	position:absolute;
+	top:0; bottom:0; left:0; right:0;
+}
+section.active {
+	display:block;
+}

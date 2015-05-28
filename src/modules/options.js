@@ -8,7 +8,9 @@ function OptionsModule() {
 
 		name : 'options',
 
-		onEnter : function() {},
+		onEnter : function() {
+			GUI.goToSection( 'Options' );
+		},
 
 		onLeave : function() {}
 
