@@ -3,8 +3,8 @@ function GameModule() {
 	'use strict';
 
 	var btn = {
-		backToTitle			: document.getElementById( 'cmd_backToTitle' ),
-		toggleEngineLoop	: document.getElementById( 'cmd_toggleEngineLoop' )
+		backToTitle			: document.getElementById( 'dbg_backToTitle' ),
+		toggleEngineLoop	: document.getElementById( 'dbg_toggleEngineLoop' )
 	};
 
 	btn.backToTitle.onclick = function() {

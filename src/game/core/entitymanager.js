@@ -1,7 +1,7 @@
 var GAME = GAME || {};
 GAME.eID = {};
-GAME.EntityManager = {};
 
+GAME.EntityManager = {};
 ( function() {
 	'use strict';
 

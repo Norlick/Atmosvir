@@ -15,9 +15,10 @@ var GUI = {};
 
 	this.goToSection = function goToSection( id ) {
 		let s = document.querySelector( 'section.active' );
+		let t = document.getElementById( id );
+
 		if ( s !== null ) s.className = '';
-		s = document.getElementById( id );
-		s.className = 'active';
+		if ( t !== null ) t.className = 'active';
 	};
 
 } ).call( GUI );

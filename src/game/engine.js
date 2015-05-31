@@ -1,6 +1,8 @@
 var GAME = GAME || {};
 
-GAME.dt = +(0.0);
+GAME.ts		= +(0.0); // TimeStep
+GAME.dt		= +(0.0); // Delta
+
 GAME.Engine = {};
 ( function() {
 
@@ -25,7 +27,8 @@ GAME.Engine = {};
 
 	function loop( t ) {
 
-		GAME.dt = +( ( t - lt ) / frame_rate );
+		GAME.ts = +( t - lt );
+		GAME.dt = +( GAME.ts / frame_rate );
 
 		GAME.View.render();
 
@@ -36,7 +39,7 @@ GAME.Engine = {};
 
 		if ( doLogMS ) {
 			console.log(
-				'Compute Time: %fms, Delta: %f',
+				'Compute Time: %fms, Delta: %f, TimeStep: %f',
 				performance.now() - t,
 				GAME.dt
 			);
