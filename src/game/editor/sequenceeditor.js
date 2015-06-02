@@ -1,4 +1,6 @@
 function SequenceEditor() {
 	'use strict';
 }
-SequenceEditor.prototype = {};
+SequenceEditor.prototype = {
+	export : function export() {}
+};

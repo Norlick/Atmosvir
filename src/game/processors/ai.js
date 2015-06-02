@@ -13,9 +13,7 @@ function AIProcessor() {
 
 	//--------------------------------------------------------------------------
 
-	this.onStart = function() {
-		console.log( 'Started AIWorker' );
-	};
+	this.onStart = function() {};
 	this.onStop = function() {};
 
 	//--------------------------------------------------------------------------
@@ -26,7 +24,7 @@ function AIProcessor() {
 	//--------------------------------------------------------------------------
 
 	this.update = function() {
-		console.log('AI Update');
+		//console.log('AI Update');
 	};
 
 }

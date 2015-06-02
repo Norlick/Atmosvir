@@ -28,18 +28,6 @@ GAME.World = {};
 
 	//--------------------------------------------------------------------------
 
-	this.add = function add( id, geometry, material ) {
-		Obj3D[ id ] = new THREE.Mesh( geom, mtl );
-		Obj3D[ id ].position.fromArray( e.object3d.position );
-		Scene.add( Obj3D[id] );
-	};
-
-	this.remove = function remove( id ) {
-		Scene.remove( Obj3D[id] );
-	};
-
-	//--------------------------------------------------------------------------
-
 	this.getScene = function getScene() {
 		if ( Scene === null ) {
 			Scene = new THREE.Scene();

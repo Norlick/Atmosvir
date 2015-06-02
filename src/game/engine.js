@@ -13,7 +13,7 @@ GAME.Engine = {};
 		// bools
 	var isReady		= false,
 		isRunning	= false,
-		doLogMS		= true,
+		doLogMS		= false,
 
 		// ints
 		tick		= 0|0,

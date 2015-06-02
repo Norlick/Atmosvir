@@ -9,25 +9,48 @@ function PhysicsProcessor() {
 
 	//--------------------------------------------------------------------------
 
-	var Obj3D = GAME.World.getObj3D(),
-		PhysicsWorker = null;
+	var eID		= GAME.eID,
+		Obj3D	= GAME.World.getObj3D(),
+		PhysicsWorker = null,
+
+		elist	= null,
+		m		= null,
+		mj		= null,
+		_update = false; // Should we update positions?
+
+	function getmessage( e ) {
+		if ( typeof e.data.log !== 'undefined' ) {
+			console.log( 'PhysicsWorker: %s', e.data.log );
+		}
+
+		// GET PHYSICS UPDATE
+		if ( e.data.msg === 'update' ) {
+			_update = true;
+
+			elist	= e.data.entities;
+			m		= e.data.matrix;
+			mj 		= e.data.matrixjoint;
+		}
+	}
+
+	PhysicsWorker = new Worker( 'src/game/workers/physics.js' );
+	PhysicsWorker.onmessage = getmessage;
 
 	//--------------------------------------------------------------------------
 
-	this.onStart = function() {
-		console.log( 'Started PhysicsWorker' );
+	this.processAddEntity = function( id ) {
+		PhysicsWorker.postMessage({ cmd:'addEntity', entity:eID[ id ] });
 	};
-	this.onStop = function() {};
-
-	//--------------------------------------------------------------------------
-
-	this.processAddEntity = function( id ) {};
-	this.processRmvEntity = function( id ) {};
+	this.processRmvEntity = function( id ) {
+		PhysicsWorker.postMessage({ cmd:'rmvEntity', id:id });
+	};
 
 	//--------------------------------------------------------------------------
 
 	this.update = function() {
-		console.log('Physics Update');
+		if ( _update ) {
+			// Update body matrixes
+		}
 	};
 
 }

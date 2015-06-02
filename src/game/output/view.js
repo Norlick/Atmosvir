@@ -8,7 +8,7 @@ GAME.View = {};
 
 		cfg = Config.display,
 
-		doLogMS	= true,
+		doLogMS	= false,
 		ms		= +(0.0),
 
 		// Viewport and Render dimensions

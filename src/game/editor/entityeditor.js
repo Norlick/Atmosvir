@@ -1,4 +1,6 @@
 function EntityEditor() {
 	'use strict';
 }
-EntityEditor.prototype = {};
+EntityEditor.prototype = {
+	export : function export() {}
+};

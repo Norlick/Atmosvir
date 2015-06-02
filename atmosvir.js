@@ -15,6 +15,7 @@ window.onload = function Atmosvir() {
 
 	// Initialize Processors
 	new CameraProcessor();
+	new MapProcessor();
 	new Object3DProcessor();
 	new AnimationProcessor();
 	new PhysicsProcessor();

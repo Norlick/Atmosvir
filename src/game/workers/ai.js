@@ -1,3 +1,5 @@
+'use strict';
+
 var UPDATE		= 0,
 	ADD			= 1,
 	REMOVE		= 2;
@@ -5,8 +7,6 @@ var UPDATE		= 0,
 //------------------------------------------------------------------------------
 
 onmessage = function( e ) {
-
-	'use strict';
 
 	switch ( e.data.cmd ) {
 

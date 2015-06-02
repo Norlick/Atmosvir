@@ -1,4 +1,6 @@
 function SceneEditor() {
 	'use strict';
 }
-SceneEditor.prototype = {};
+SceneEditor.prototype = {
+	export : function export() {}
+};

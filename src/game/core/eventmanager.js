@@ -8,14 +8,12 @@ GAME.EventManager = {};
 	var i = 0, x = 0, q = 0,
 
 		doLogEvents		= true,
-		
+
 		_maxqueued		= 3 *16,
 		Queue			= new Array( _maxqueued ),
 		queue_length	= 0,
 
-		Recievers		= [],
-
-		Garbage			= [];
+		Recievers		= [];
 
 	//--------------------------------------------------------------------------
 

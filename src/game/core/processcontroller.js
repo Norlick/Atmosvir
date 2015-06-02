@@ -25,8 +25,9 @@ GAME.ProcessController = {};
 
 		if ( watch !== undefined ) {
 
-			this.watching = ( Array.isArray( watch ) ) ? watch : [ watch ];
-			this.entities = [];
+			this.watching	= ( Array.isArray( watch ) ) ? watch : [ watch ];
+			this.entities	= [];
+			this.ecount		= 0|0;
 
 			this.events.entityChanged = function( e ) {
 
@@ -36,7 +37,7 @@ GAME.ProcessController = {};
 						if ( this.processAddEntity !== undefined ) {
 							this.processAddEntity( e.id );
 						}
-						this.entities.push( e.id );
+						this.ecount = this.entities.push( e.id ) +1;
 						console.info(
 							'%s acquired Entity[ %d ]',
 							this.printname,
@@ -49,6 +50,7 @@ GAME.ProcessController = {};
 						this.processRmvEntity( e.id );
 					}
 					this.entities.splice( indx,1 );
+					this.ecount = this.entities.length;
 					console.info(
 						'%s unattached from Entity[ %d ]',
 						this.printname,

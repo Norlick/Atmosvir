@@ -30,6 +30,7 @@ function GameModule() {
 				'font-weight:bold;color:#555;text-decoration:underline'
 			);
 			GAME.ProcessController.start( 'camera' );
+			GAME.ProcessController.start( 'map' );
 			GAME.ProcessController.start( 'object3d' );
 			GAME.ProcessController.start( 'animation' );
 			GAME.ProcessController.start( 'physics' );

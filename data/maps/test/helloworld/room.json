@@ -1,0 +1,14 @@
+{
+	"name"	: "BasicRoom",
+	"exits"	: [
+		{
+			"label"		: "Reload",
+			"position"	: [ 10,10,0 ],
+			"size"		: [ 1,1,1 ],
+			"goto"		: [ "test", "BasicRoom" ]
+		}
+	],
+	"triggers"	: [],
+	"actors"	: [],
+	"entities"	: []
+}
