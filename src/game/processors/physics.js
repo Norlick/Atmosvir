@@ -1,6 +1,14 @@
+/*
+___ TODO _______________________________________________________________________
+	~ Transmit Actor movement velocity data
+	~ Decide how to calculate actor movement velocity -- main or physics thread?
+------------------------------------------------------------------------------*/
+
 function PhysicsProcessor() {
 
 	'use strict';
+
+	// TODO: Use TypedArrays 'cuz Garbage Collector is an asshole.
 
 	GAME.ProcessController.construct( this, {
 		name : 'Physics',
@@ -9,13 +17,19 @@ function PhysicsProcessor() {
 
 	//--------------------------------------------------------------------------
 
-	var eID		= GAME.eID,
+	var	i = 0, x = 0, n = 0,
+
+		eID		= GAME.eID,
 		Obj3D	= GAME.World.getObj3D(),
 		PhysicsWorker = null,
 
-		elist	= null,
-		m		= null,
-		mj		= null,
+		// Update objects
+		_m		= new THREE.Matrix4(),
+
+		elist	= [], // Index of eID's on the worker
+		actors	= {}, // Indexed by eID
+		mtx		= {}, // Indexed by eID
+		mj		= {},
 		_update = false; // Should we update positions?
 
 	function getmessage( e ) {
@@ -28,7 +42,7 @@ function PhysicsProcessor() {
 			_update = true;
 
 			elist	= e.data.entities;
-			m		= e.data.matrix;
+			mtx		= e.data.matrix;
 			mj 		= e.data.matrixjoint;
 		}
 	}
@@ -49,10 +63,25 @@ function PhysicsProcessor() {
 
 	this.update = function() {
 		if ( _update ) {
+
+			_update = false;
+			PhysicsWorker.postMessage( { cmd:'update' } );
+
 			// Update body matrixes
+			//console.log(m, elist);
+			for ( i=0; i < elist.length; i++ ) {
+				x = elist[ i ];
+				console.log( x,mtx[x] );
+				//Obj3D[ x ].applyMatrix( _m.fromArray( mtx[ x ] ) );
+				Obj3D[ x ].matrixWorld.fromArray( mtx[ x ] );
+			}
+
 		}
 	};
 
+	PhysicsWorker.postMessage( { cmd:'update' } );
+
+	//--------------------------------------------------------------------------
 }
 
 function PhysicsComponent( opt ) {

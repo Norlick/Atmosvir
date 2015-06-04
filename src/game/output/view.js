@@ -47,7 +47,7 @@ GAME.View = {};
 		if ( cfg.staticviewport ) Renderer.setSize( 640,480 );
 		else Renderer.setSize( vw,vh );
 
-		Camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+		this.getCamera();
 
 		Scene = GAME.World.getScene();
 		Scene.add( Camera );
@@ -76,5 +76,12 @@ GAME.View = {};
 	};
 
 	//--------------------------------------------------------------------------
+
+	this.getCamera = function() {
+		if ( Camera === null ) {
+			Camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+		}
+		return Camera;
+	};
 
 } ).call( GAME.View );

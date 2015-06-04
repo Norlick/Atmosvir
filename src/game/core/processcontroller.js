@@ -39,7 +39,7 @@ GAME.ProcessController = {};
 						}
 						this.ecount = this.entities.push( e.id ) +1;
 						console.info(
-							'%s acquired Entity[ %d ]',
+							'%s connected to Entity[ %d ]',
 							this.printname,
 							e.id
 						);
@@ -52,7 +52,7 @@ GAME.ProcessController = {};
 					this.entities.splice( indx,1 );
 					this.ecount = this.entities.length;
 					console.info(
-						'%s unattached from Entity[ %d ]',
+						'%s disconnected from Entity[ %d ]',
 						this.printname,
 						e.id
 					);

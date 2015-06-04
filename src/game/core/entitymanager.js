@@ -5,7 +5,9 @@ GAME.EntityManager = {};
 ( function() {
 	'use strict';
 
-	var i = 0, x = 0;
+	var i = 0, x = 0,
+
+		total_entities = 0 |0;
 
 	// ENTITY EVENTS -----------------------------------------------------------
 
@@ -18,7 +20,7 @@ GAME.EntityManager = {};
 
 	function Entity( c ) {
 
-		this.id = Math.floor( 10000000 + Math.random() * 90000000 );
+		this.id = ( 10000 + Math.random() * 90000 |0 ) * 1000 + total_entities++ |0;
 
 		if ( c !== undefined ) {
 			this.add( c );
@@ -32,7 +34,7 @@ GAME.EntityManager = {};
 		add : function( cmpnt ) {
 			// Let c be an array if it isn't already
 			let c = ( Array.isArray(cmpnt) ) ? cmpnt : [ cmpnt ];
-			for ( x=0; x<c.length; x++ ) {
+			for ( x=0; x < c.length; x++ ) {
 				this[ c[x].name ] = c[x];
 			}
 			// Notify processors that the entity has changed

@@ -19,29 +19,23 @@ function Object3DProcessor() {
 
 	this.processAddEntity = function( id ) {
 		let e = eID[ id ];
+		Loader.load( e.object3d.resource, function( geom, materials ) {
+			let	mtl = new THREE.MeshFaceMaterial(materials),
 
-		if ( e.object3d.resource === 'box' ) {
-
-			let geom	= new THREE.BoxGeometry( 1,1,1 ),
-				mtl		= new THREE.MeshBasicMaterial( { color: 0x336699 } ),
-				o		= Obj3D[ id ] = new THREE.Mesh( geom, mtl );
-			o.position.fromArray( e.object3d.position );
-			Scene.add( o );
-
-		} else {
-
-			Loader.load( e.object3d.resource, function( geom, mtl ) {
 				// Create a MorphAnimMesh if animated, otherwise normal mesh
-				let o = ( e.animation !== undefined ) ?
+				o = ( e.animation !== undefined ) ?
 					Obj3D[ id ] = new THREE.MorphAnimMesh( geom, mtl ) :
 					Obj3D[ id ] = new THREE.Mesh( geom, mtl );
 
-				// Set base position from component
-				o.position.fromArray( e.object3d.position );
-				Scene.add( o );
-			} );
+			console.log( o );
 
-		}
+			// Set base position from component
+			o.position.fromArray( e.object3d.position );
+			o.quaternion.fromArray( e.object3d.quaternion );
+
+			Scene.add( o );
+		} );
+		console.log(Obj3D[id]);
 	};
 
 	this.processRmvEntity = function( id ) {
@@ -59,8 +53,9 @@ function Object3DComponent( opt ) {
 
 	var opt = opt || {};
 
-	this.resource = opt.resource || 'box';
-	this.position = opt.position || [0,0,0];
+	this.resource	= opt.resource || 'data/objects/test/measures/2m.json';
+	this.position	= opt.position || [ 0,0,0 ];
+	this.quaternion	= opt.quaternion || [ 0,0,0,0 ];
 
 }
 Object3DComponent.prototype.name = 'object3d';

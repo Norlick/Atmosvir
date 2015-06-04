@@ -10,6 +10,12 @@ function MapProcessor() {
 
 	//--------------------------------------------------------------------------
 
+	this.events.load = function( e ) {
+		GAME.Util.loadJSON( e.url, function( opt ) {} );
+	};
+
+	this.events.reset = function( e ) {};
+
 	this.events.goToRoom = function( e ) {};
 
 }
