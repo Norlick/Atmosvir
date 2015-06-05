@@ -2,6 +2,7 @@
 ___ TODO _______________________________________________________________________
 	~ Transmit Actor movement velocity data
 	~ Decide how to calculate actor movement velocity -- main or physics thread?
+	~ Synchronize timestep on worker with main thread Delta
 ------------------------------------------------------------------------------*/
 
 function PhysicsProcessor() {
@@ -31,6 +32,8 @@ function PhysicsProcessor() {
 		mtx		= {}, // Indexed by eID
 		mj		= {},
 		_update = false; // Should we update positions?
+
+	//--------------------------------------------------------------------------
 
 	function getmessage( e ) {
 		if ( typeof e.data.log !== 'undefined' ) {
@@ -71,7 +74,7 @@ function PhysicsProcessor() {
 			//console.log(m, elist);
 			for ( i=0; i < elist.length; i++ ) {
 				x = elist[ i ];
-				console.log( x,mtx[x] );
+				console.log( x, mtx[x] );
 				//Obj3D[ x ].applyMatrix( _m.fromArray( mtx[ x ] ) );
 				Obj3D[ x ].matrixWorld.fromArray( mtx[ x ] );
 			}

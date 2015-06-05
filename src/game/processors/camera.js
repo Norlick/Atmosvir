@@ -8,8 +8,9 @@ function CameraProcessor() {
 
 	//--------------------------------------------------------------------------
 
-	var	eID		= GAME.eID,
-		Camera	= GAME.View.getCamera(),
+	var	eID			= GAME.eID,
+		Camera		= GAME.View.getCamera(),
+		Raycaster	= new THREE.Raycaster(),
 
 		// Active offsets
 		_pos_offset			= new THREE.Vector3(),
