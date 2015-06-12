@@ -19,15 +19,11 @@ GAME.EntityManager = {};
 	// ENTITY PROTOTYPE --------------------------------------------------------
 
 	function Entity( c ) {
+		this.id = ( 1e4 + Math.random() * 9e4 |0 ) * 1e3 + total_entities++ |0;
 
-		this.id = ( 10000 + Math.random() * 90000 |0 ) * 1000 + total_entities++ |0;
-
-		if ( c !== undefined ) {
-			this.add( c );
-		}
+		if ( c !== undefined ) this.add( c );
 
 		GAME.eID[ this.id ] = this;
-
 	}
 	Entity.prototype = {
 

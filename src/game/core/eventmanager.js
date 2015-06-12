@@ -33,12 +33,16 @@ GAME.EventManager = {};
 		} else {
 			console.error( 'Event Queue full! Some events have been ignored!' );
 		}
+		return this;
 	};
 
 	this.register = function register( reciever ) {
 		if ( Recievers.indexOf( reciever ) === -1 ) {
 			Recievers.push( reciever );
-			console.info( 'Registered Event Reciever: %s', reciever.printname );
+			console.info(
+				'Registered Event Reciever: %s',
+				reciever.printname
+			);
 		} else {
 			console.warn(
 				'Could not register Reciever[ %s ] as it is already registered',
@@ -48,9 +52,13 @@ GAME.EventManager = {};
 	};
 
 	this.unregister = function unregister( reciever ) {
-		if ( Recievers.indexOf( reciever ) !== -1 ) {
-			Recievers.splice( Recievers.indexOf( reciever ), 1 );
-			console.info( 'Unregistered Event Reciever: %s', reciever.printname );
+		let r = Recievers.indexOf( reciever );
+		if ( r !== -1 ) {
+			Recievers.splice( r,1 );
+			console.info(
+				'Unregistered Event Reciever: %s',
+				reciever.printname
+			);
 		} else {
 			console.error(
 				'Cannot unregister Reciever[ %s ] as it is already unregistered',

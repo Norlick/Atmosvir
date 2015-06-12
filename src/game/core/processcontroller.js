@@ -7,16 +7,19 @@ GAME.ProcessController = {};
 	var i = 0, x = 0, n = 0,
 		indx = 0,
 
-		eID				= GAME.eID,
+		eID					= GAME.eID,
 
-		Processors		= [],
-		ProcessorDict	= {},
+		Processors			= [],
+		ProcessorDict		= {},
 
-		Updaters		= [];
+		activeProcessors	= new Set(),
+		Updaters			= [];
 
 	//--------------------------------------------------------------------------
 
 	function Processor( name, watch ) {
+
+		var has	= false;
 
 		this.name = name.toLowerCase();
 		this.printname = name + ' Processor';
@@ -26,18 +29,18 @@ GAME.ProcessController = {};
 		if ( watch !== undefined ) {
 
 			this.watching	= ( Array.isArray( watch ) ) ? watch : [ watch ];
-			this.entities	= [];
-			this.ecount		= 0|0;
+			this.entities	= new Set();
+			// CHANGED this.entities from Array to Set
 
 			this.events.entityChanged = function( e ) {
 
-				indx = this.entities.indexOf( e.id );
+				has = this.entities.has( e.id );
 				if ( GAME.eID[ e.id ].has( this.watching ) ) {
-					if ( indx === -1 ) {
+					if ( !has ) {
 						if ( this.processAddEntity !== undefined ) {
 							this.processAddEntity( e.id );
 						}
-						this.ecount = this.entities.push( e.id ) +1;
+						this.entities.add( e.id ) +1;
 						console.info(
 							'%s connected to Entity[ %d ]',
 							this.printname,
@@ -45,12 +48,11 @@ GAME.ProcessController = {};
 						);
 					}
 
-				} else if ( indx !== -1 ) {
+				} else if ( has ) {
 					if ( this.processRmvEntity !== undefined ) {
 						this.processRmvEntity( e.id );
 					}
-					this.entities.splice( indx,1 );
-					this.ecount = this.entities.length;
+					this.entities.remove( e.id );
 					console.info(
 						'%s disconnected from Entity[ %d ]',
 						this.printname,
@@ -91,6 +93,8 @@ GAME.ProcessController = {};
 
 		GAME.EventManager.register( p );
 
+		activeProcessors.add( name );
+
 		console.info( 'Started %s', p.printname );
 
 	};
@@ -105,10 +109,21 @@ GAME.ProcessController = {};
 			Updaters.splice( Updaters.indexOf( ProcessorDict[name] ), 1 );
 		}
 
+
 		GAME.EventManager.unregister( p );
+
+		activeProcessors.delete( name );
 
 		console.info( 'Stopped %s', p.printname );
 	};
+
+	this.stopAll = function stopAll() {
+		for ( let p of activeProcessors ) {
+			this.stop( p );
+		}
+	};
+
+	//--------------------------------------------------------------------------
 
 	this.update = function update() {
 		for ( i=0; i<Updaters.length; i++ ) {
