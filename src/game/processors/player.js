@@ -25,6 +25,13 @@ function PlayerProcessor() {
 
 	//--------------------------------------------------------------------------
 
+	function PlayerAcquiredEvent( id ) {
+		this.id = id;
+	};
+	PlayerAcquiredEvent.prototype.name = 'playerCreated';
+
+	//--------------------------------------------------------------------------
+
 	this.processAddEntity = function( id ) {
 		if ( playerAcquired ) {
 			console.error( 'Cannot acquire more than one player actor!' );

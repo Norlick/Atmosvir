@@ -1,5 +1,16 @@
 {
 	"name"	: "BasicRoom",
+	"processors" : [
+		"camera",
+		"actor",
+		"ai",
+		"player",
+		"object3d",
+		"animation",
+		"physics",
+		"map",
+		"inventory"
+	],
 	"exits"	: [
 		{
 			"label"		: "Reload",
@@ -15,5 +26,6 @@
 			"steps"	: []
 		}
 	],
-	"entities"	: []
+	"entities"	: [],
+	"statics"	: []
 }

@@ -29,15 +29,8 @@ function GameModule() {
 				'%cSTARTING GAMEPLAY PROCESSORS',
 				'font-weight:bold;color:#555;text-decoration:underline'
 			);
-			GAME.ProcessController.start( 'camera' );
-			GAME.ProcessController.start( 'map' );
-			GAME.ProcessController.start( 'object3d' );
-			GAME.ProcessController.start( 'animation' );
-			GAME.ProcessController.start( 'physics' );
-			GAME.ProcessController.start( 'actor' );
-			GAME.ProcessController.start( 'inventory' );
-			GAME.ProcessController.start( 'player' );
-			GAME.ProcessController.start( 'ai' );
+
+			GAME.Engine.load( './data/maps/test/helloworld/' );
 		},
 
 		onLeave : function() {
@@ -47,14 +40,6 @@ function GameModule() {
 				'%cSTOPPING GAMEPLAY PROCESSORS',
 				'font-weight:bold;color:#555;text-decoration:underline'
 			);
-			GAME.ProcessController.stop( 'camera' );
-			GAME.ProcessController.stop( 'object3d' );
-			GAME.ProcessController.stop( 'animation' );
-			GAME.ProcessController.stop( 'physics' );
-			GAME.ProcessController.stop( 'actor' );
-			GAME.ProcessController.stop( 'inventory' );
-			GAME.ProcessController.stop( 'player' );
-			GAME.ProcessController.stop( 'ai' );
 
 			GAME.Engine.shutdown();
 		}

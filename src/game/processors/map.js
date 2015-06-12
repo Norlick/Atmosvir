@@ -10,8 +10,8 @@ function MapProcessor() {
 
 	//--------------------------------------------------------------------------
 
-	this.events.load = function( e ) {
-		GAME.Util.loadJSON( e.url, function( opt ) {} );
+	this.events.init = function( e ) {
+		console.log( JSON.stringify( e.data, null, 4 ) );
 	};
 
 	this.events.reset = function( e ) {};

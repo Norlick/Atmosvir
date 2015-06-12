@@ -26,10 +26,12 @@ function AnimationProcessor() {
 	//--------------------------------------------------------------------------
 
 	this.update = function() {
-		for ( i = 0, n = this.entities.length; i < n; i++ ) {
-			if ( eID[ this.entities[i] ].animation.play ) {
-				Obj3D[ this.entities[i] ].updateAnimation( GAME.ts );
+		for ( i of this.entities ) {
+
+			if ( eID[ i ].animation.play ) {
+				Obj3D[ i ].updateAnimation( GAME.ts );
 			}
+
 		}
 	};
 

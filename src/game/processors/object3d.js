@@ -53,7 +53,7 @@ function Object3DComponent( opt ) {
 
 	var opt = opt || {};
 
-	this.resource	= opt.resource || 'data/objects/test/measures/2m.json';
+	this.resource	= opt.resource || './data/objects/test/measures/2m.json';
 	this.position	= opt.position || [ 0,0,0 ];
 	this.quaternion	= opt.quaternion || [ 0,0,0,0 ];
 

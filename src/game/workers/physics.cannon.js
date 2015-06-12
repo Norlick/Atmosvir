@@ -5,25 +5,23 @@ importScripts( 'cannon.min.js' ); // Cannon.js
 // -----------------------------------------------------------------------------
 
 var i = 0|0, e = 0|0,
-	dt = 1/60, iterations = 8, gravity = -9.8,
+	dt = 1/60, tolerance = 0.001, iterations = 8, gravity = -9.8,
 	timestep	= dt * 1000,
 	wakeup		= false,
 
 	entities	= [],
-	terrain		= null, // Plane with heightmap
-	statics		= [],
+	statics		= [], // Environment
 
-	actors		= {}, // Indexed by eID
+	actors		= [], // eID index
 	bodies		= {}, // Indexed by eID
-	mtx			= {}, // Indexed by eID
-	joints		= [],
-	matrixjoint	= [],
+	positions	= {}, // Indexed by eID
+	quaternions	= {}, // Indexed by eID
 
 	// World init
 	world					= new CANNON.World();
 	world.broadphase		= new CANNON.NaiveBroadphase();
-	world.solver.tolerance	= 0.001;
-	world.solver.iterations	= 8;
+	world.solver.tolerance	= tolerance;
+	world.solver.iterations	= iterations;
 	world.gravity.set( 0, gravity, 0 )
 
 	// Default physics material
@@ -34,24 +32,25 @@ var i = 0|0, e = 0|0,
 
 /*
 ____Actor body _________________________________________________________________
- ***EXPERIMENTAL***
-	http://lo-th.github.io/Oimo.js/js/oimo/vehicle/player.js				  */
+ ***EXPERIMENTAL**															  */
 function ActorBody( id, opt ) {
 
 	this.id	= id;
 
-//	this.speed		= 0.2;
-	this.phi		= 0;
-	this.position	= opt.position || [ 0, 0, 0 ];
-
-	this.body = new CANNON.Body({ mass:2 });
+	this.body = new CANNON.Body({
+		allowSleep: false,
+		mass: 2
+	});
 
 	bodies[ id ] = this.body;
-	actors[ id ] = this;
 
 }
 ActorBody.prototype = {
-	move : function( v ) {}
+	// See if it's better to process velocity on worker or physics processor
+	move : function( x, y ) {
+		this.body.velocity.x = x;
+		this.body.velocity.z = z;
+	}
 };
 
 self.postMessage({ log:'Initialized Physics Worker' });
@@ -71,17 +70,10 @@ self.onmessage = function( e ) {
 			i		= entities.length;
 			wakeup	= false;
 
-			// Body Matrixes
-			while ( i-- ) {
-				var e = entities[ i ];
-				if ( wakeup ) bodies[ e ].awake();
-				mtx[ e ] = bodies[ e ].getMatrix();
-			}
-
-			// Joint Matrixes
-			i = joints.length;
-			while ( i-- ) {
-				matrixjoint[ i ] = joints[ i ].getMatrix();
+			while( i-- ) {
+				let b = bodies[ entities[i] ];
+				positions[ entities[i] ]	= b.position.toArray();
+				quaternions[ entities[i] ]	= b.quaternion.toArray();
 			}
 
 			// Collisions
@@ -91,8 +83,8 @@ self.onmessage = function( e ) {
 			self.postMessage( {
 				msg: 'update',
 				entities: entities,
-				matrix: mtx,
-				matrixjoint: matrixjoint
+				positions: positions,
+				quaternions: quaternions
 			} );
 
 			break;
@@ -107,20 +99,12 @@ self.onmessage = function( e ) {
 		case 'rmvEntity':
 			break;
 
-
-		// ADD JOINT
-		case 'addJoint':
-			self.postMessage( { log: 'addJoint Not yet implemented' } );
+		case 'createStaticEventEmitter':
 			break;
 
+		case 'initMap':
+			self.postMessage( { log: 'Initializing Static Map Geometry.' } );
 
-		case 'createStaticCollider':
-			self.postMessage( { log: 'Created static collider.' } );
-			break;
-
-
-		case 'initWorld':
-			self.postMessage( { log: 'Initializing Physics world.' } );
 			break;
 
 

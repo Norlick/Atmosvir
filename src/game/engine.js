@@ -21,7 +21,13 @@ GAME.Engine = {};
 		// floats
 		frame_rate	= +(1000/60),
 		lt			= +(0.0),
-		ms			= +(0.0);
+		ms			= +(0.0),
+
+		// cached events
+		initEvent	= {
+			name		: 'init',
+			data		: null
+		};
 
 	//--------------------------------------------------------------------------
 
@@ -60,6 +66,7 @@ GAME.Engine = {};
 
 	this.shutdown = function shutdown() {
 		if ( isReady && !isRunning ) {
+			GAME.ProcessController.stopAll();
 			GAME.View.shutdown();
 			GAME.World.shutdown();
 			isReady = false;
@@ -86,6 +93,35 @@ GAME.Engine = {};
 			return true;
 		}
 		return false;
+	};
+
+	//--------------------------------------------------------------------------
+
+	this.load = function load( directory ) {
+		if ( isReady ) {
+
+			GAME.ProcessController.stopAll();
+
+			GAME.Util.loadJSON( directory + 'loadfile.json', function( data ) {
+
+				console.log(
+					'Loading from file: %s\n%s',
+					directory,
+					JSON.stringify( data, null, 4 )
+				);
+
+				// Start processors
+				for ( let p of data.processors ) {
+					GAME.ProcessController.start( p );
+				}
+
+				// Send init event
+				initEvent.data = data;
+				GAME.EventManager.send( initEvent ).deliver();
+
+				// Create Entities
+			} );
+		}
 	};
 
 	//--------------------------------------------------------------------------
