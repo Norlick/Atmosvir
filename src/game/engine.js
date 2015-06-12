@@ -105,10 +105,11 @@ GAME.Engine = {};
 			GAME.Util.loadJSON( directory + 'loadfile.json', function( data ) {
 
 				console.log(
-					'Loading from file: %s\n%s',
-					directory,
-					JSON.stringify( data, null, 4 )
+					'Loading from file: %s',
+					directory
 				);
+
+				data.dir = directory;
 
 				// Start processors
 				for ( let p of data.processors ) {

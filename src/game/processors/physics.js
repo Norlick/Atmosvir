@@ -20,17 +20,18 @@ function PhysicsProcessor() {
 
 	var	i = 0, x = 0, n = 0,
 
-		eID		= GAME.eID,
-		Obj3D	= GAME.World.getObj3D(),
-		PhysicsWorker = null,
+		eID				= GAME.eID,
+		Obj3D			= GAME.World.getObj3D(),
+		PhysicsWorker	= null,
+
+		environment		= null,
 
 		// Update objects
 		_m		= new THREE.Matrix4(),
 
 		elist	= [], // Index of eID's on the worker
 		actors	= {}, // Indexed by eID
-		mtx		= {}, // Indexed by eID
-		mj		= {},
+
 		_update = false; // Should we update positions?
 
 	//--------------------------------------------------------------------------
@@ -45,8 +46,6 @@ function PhysicsProcessor() {
 			_update = true;
 
 			elist	= e.data.entities;
-			mtx		= e.data.matrix;
-			mj 		= e.data.matrixjoint;
 		}
 	}
 
@@ -74,8 +73,8 @@ function PhysicsProcessor() {
 			//console.log(m, elist);
 			for ( i=0; i !== elist.length; i++ ) {
 				x = elist[ i ];
-				console.log( x, mtx[x] );
-				Obj3D[ x ].applyMatrix( _m.fromArray( mtx[ x ] ) );
+				console.log( x );
+				//Obj3D[ x ].applyMatrix( _m.fromArray( mtx[ x ] ) );
 				//Obj3D[ x ].matrixWorld.fromArray( mtx[ x ] );
 			}
 
@@ -83,6 +82,12 @@ function PhysicsProcessor() {
 	};
 
 	PhysicsWorker.postMessage( { cmd:'update' } );
+
+	//--------------------------------------------------------------------------
+
+	this.events.init = function( e ) {
+		PhysicsWorker.postMessage( { cmd:'initMap', dir:e.data.dir } );
+	};
 
 	//--------------------------------------------------------------------------
 }
